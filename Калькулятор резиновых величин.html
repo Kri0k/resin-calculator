@@ -1,0 +1,128 @@
+<head>
+    <title>Супир Пупир Калькулятор</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="panel">
+        <button onclick="mob()" class="button">Телефон</button>
+        <button onclick="tab()" class="button">Планшет</button>
+        <button onclick="pc()" class="button">ПК</button>
+        <p id="adapt" class="type">Адаптация</p>
+        <input type="number" placeholder="Значение в пикселях" id="inputer">
+        <button onclick="calc()" class="calc">Посчитать</button>
+        <p id="output" class="output">Значение в относительных</p>
+    </div>
+</body>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(178, 179, 172);
+    }
+    .panel {
+        background-color: rgb(107, 135, 160);
+        border-radius: 1vw;
+        width: 30vw;
+        display: grid;
+        grid-template-areas: "buttona buttonb buttonc"
+                             "adapt . ."
+                             "input input buttond"
+                             "output output output";
+        grid-template-columns: 30% 30% 30%;
+        justify-content: space-between;
+        padding: 3vw 2vw;
+        row-gap: 1vw;
+    }
+    .button {
+        border: solid 0.2vw rgb(34, 31, 48);
+        width: 100%;
+        height: 3vw;
+        font-size: 1.2vw;
+        background-color: aquamarine;
+        cursor: pointer;
+    }
+    .button:hover {background-color: rgb(108, 131, 123);}
+    .type {
+        grid-area: adapt;
+        font-size: 1.2vw;
+        color: rgb(75, 75, 75);
+        margin: 0;
+    }
+    .calc {
+        border: solid 0.1vw rgb(34, 31, 48);
+        width: 100%;
+        height: 3vw;
+        font-size: 1.2vw;
+        background-color: rgb(138, 162, 194);
+        cursor: pointer;
+        grid-area: buttond;
+    }
+    .calc:hover {background-color: rgb(104, 116, 116);}
+    input {
+        grid-area: input;
+        width: 70%;
+        height: 60%;
+        align-self: center;
+        font-size: 1vw;
+    }
+    .output {
+        grid-area: output;
+        color: darkred;
+        font-size: 2vw;
+        margin: 0;
+    }
+
+    @media all and (max-width: 700px) {
+        .panel {
+            width: 90vw;
+            grid-template-columns: 32% 32% 32%;
+            border-radius: 3vw;
+            row-gap: 7vw;
+        }
+        .button {font-size: 4vw; height: 15vw;}
+        .type {font-size: 6vw;}
+        .calc {height: 15vw; font-size: 4vw;}
+        input {height: 80%; font-size: 6vw;}
+        .output {font-size: 8vw;}
+    }
+</style>
+<script>
+    var adaptation = "none";
+    let answer = 0;
+
+    function mob() {
+        document.getElementById("adapt").textContent="Мобильная"
+        adaptation = "mob";
+    };
+    function tab() {
+        document.getElementById("adapt").textContent="Планшет"
+        adaptation = "tablet"
+    };
+    function pc() {
+        document.getElementById("adapt").textContent="ПК"
+        adaptation = "pc"
+    };
+
+    function calc() {
+        if (adaptation == "none") {
+            document.getElementById("output").textContent="Не выбрана адаптация";
+        }
+        else {
+            var inputer = document.getElementById("inputer").value;
+            switch (adaptation) {
+                case "mob":
+                    answer = (inputer * 100) / 428;
+                    break;
+                case "tablet":
+                    answer = (inputer * 100) / 834;
+                    break;
+                case "pc":
+                    answer = (inputer * 100) / 1440;
+                    break;
+            }
+            document.getElementById("output").textContent=answer.toFixed(4)+" vw";
+        }
+        
+    }
+</script>
