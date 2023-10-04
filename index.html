@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class="panel">
+    <div class="panel width">
         <button onclick="mob()" class="button">Телефон</button>
         <button onclick="tab()" class="button">Планшет</button>
         <button onclick="pc()" class="button">ПК</button>
@@ -11,6 +11,7 @@
         <input type="number" placeholder="Значение в пикселях" id="inputer">
         <button onclick="calc()" class="calc">Посчитать</button>
         <p id="output" class="output">Значение в относительных</p>
+        <p id="output-text" class="output">Значение в относительных</p>
     </div>
 </body>
 <style>
@@ -28,7 +29,8 @@
         grid-template-areas: "buttona buttonb buttonc"
                              "adapt . ."
                              "input input buttond"
-                             "output output output";
+                             "output output output"
+                             "outputer outputer outputer";
         grid-template-columns: 30% 30% 30%;
         justify-content: space-between;
         padding: 3vw 2vw;
@@ -72,6 +74,7 @@
         font-size: 2vw;
         margin: 0;
     }
+    #output-text {grid-area: outputer;}
 
     @media all and (max-width: 700px) {
         .panel {
@@ -90,6 +93,7 @@
 <script>
     var adaptation = "none";
     let answer = 0;
+    let font = 0;
 
     function mob() {
         document.getElementById("adapt").textContent="Мобильная"
@@ -113,15 +117,19 @@
             switch (adaptation) {
                 case "mob":
                     answer = (inputer * 100) / 428;
+                    font = inputer*0.10204081632;
                     break;
                 case "tablet":
                     answer = (inputer * 100) / 834;
+                    font = inputer*0.10204081632;
                     break;
                 case "pc":
                     answer = (inputer * 100) / 1440;
+                    font = inputer*0.069444444;
                     break;
             }
-            document.getElementById("output").textContent=answer.toFixed(6)+"vw";
+            document.getElementById("output").textContent="Размер: "+answer.toFixed(6)+"vw";
+            document.getElementById("output-text").textContent="Шрфит: "+font.toFixed(6)+"vw";
         }
         
     }
